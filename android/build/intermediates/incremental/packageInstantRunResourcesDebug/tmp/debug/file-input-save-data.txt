@@ -1,0 +1,7 @@
+#Internal package file, do not edit.
+#Tue Mar 05 01:49:09 GMT+09:00 2019
+0.baseType=DIRECTORY
+0.base=C\:\\Users\\Kirill\\libGDXProjects\\Lesson1\\android\\build\\intermediates\\merged_assets\\debug\\mergeDebugAssets\\out
+0.path=badlogic.jpg
+0.set=ASSET
+count=1
