@@ -33,8 +33,16 @@ public class Rectang {
         return pos.x - halfWidth;
     }
 
+    public float getRight() {
+        return pos.x + halfWidth;
+    }
+
     public float getBottom() {
-        return pos.y - halfWidth;
+        return pos.y - halfHeight;
+    }
+
+    public float getTop() {
+        return pos.y + halfHeight;
     }
 
     public float getWidth() {
@@ -47,6 +55,10 @@ public class Rectang {
 
     public void setLeft(float left){
         pos.x = left + halfWidth;
+    }
+
+    public void setRight(float right){
+        pos.x = right - halfWidth;
     }
 
     public void setBottom(float bottom){
@@ -65,5 +77,9 @@ public class Rectang {
     public void setSize(float width, float height) {
         this.halfWidth = width/2f;
         this.halfHeight = height/2f;
+    }
+
+    public boolean isInside(Vector2 touch) {
+        return touch.x >= getLeft() && touch.x <= getRight() && touch.y >= getBottom() && touch.y <= getTop();
     }
 }
