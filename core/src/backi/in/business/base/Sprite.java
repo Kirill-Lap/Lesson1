@@ -5,17 +5,25 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 
 import backi.in.business.math.Rectang;
+import backi.in.business.utils.RegionsUtils;
 
 public class Sprite extends Rectang {
     private float angle;
     private float scale = 1f;
-    private TextureRegion[] regions;
+    protected TextureRegion[] regions;
 
-    private int frame=0;
+    protected int frame=0;
+
+    public Sprite() {
+    }
 
     public Sprite(TextureRegion region) {
         this.regions = new TextureRegion[1];
         regions[0] = region;
+    }
+
+    public Sprite(TextureRegion region, int rows, int cols, int frames) {
+        this.regions = RegionsUtils.split(region, rows, cols, frames);
     }
 
     public void setHeightProportion (float height) {

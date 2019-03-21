@@ -19,7 +19,7 @@ import backi.in.business.sprite.Star;
 
 // Рабочий экран
 public class MenuScreen2 extends BaseScreen {
-    private static final int STAR_COUNT = 32;
+    private static final int STAR_COUNT = 64;
 
     private Game game;
 
@@ -46,7 +46,7 @@ public class MenuScreen2 extends BaseScreen {
         background = new Background(new TextureRegion(backgroundImg));
         starList = new Star[STAR_COUNT];
         for (int i = 0; i < starList.length; i++) {
-            starList[i] = new Star();
+            starList[i] = new Star(new TextureRegion(new Texture("star2.png")));
         }
         atlas = new TextureAtlas("Textures/btns.pack");
         btnExit = new BtnExit(atlas);
