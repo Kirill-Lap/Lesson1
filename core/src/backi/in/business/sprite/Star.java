@@ -14,12 +14,12 @@ public class Star extends Sprite {
     private Vector2 v;
     private Rectang worldBounds;
 
-    public Star(/*TextureRegion region*/) {
-        super(new TextureRegion(new Texture("star2.png")));
+    public Star(TextureRegion region) {
+        super(region);
         float vX = randomFloat(-0.01f, 0.01f);
         float vY = randomFloat(-0.4f, -0.1f);
         v = new Vector2(vX,vY);
-        float size = randomFloat(0.06f, 0.10f);
+        float size = randomFloat(0.01f, 0.015f);
         setHeightProportion(size);
     }
 
