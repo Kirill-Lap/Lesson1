@@ -82,4 +82,9 @@ public class Rectang {
     public boolean isInside(Vector2 touch) {
         return touch.x >= getLeft() && touch.x <= getRight() && touch.y >= getBottom() && touch.y <= getTop();
     }
+
+    public boolean isOutside(Rectang bounds) {
+        return getLeft() < bounds.getLeft() || getRight() > bounds.getRight() || getBottom() < bounds.getBottom() || getTop() > bounds.getTop();
+    }
+
 }
