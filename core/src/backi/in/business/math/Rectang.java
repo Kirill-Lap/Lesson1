@@ -61,6 +61,10 @@ public class Rectang {
         pos.x = right - halfWidth;
     }
 
+    public void setTop(float top){
+        pos.y = top - halfHeight;
+    }
+
     public void setBottom(float bottom){
         pos.y = bottom + halfHeight;
     }

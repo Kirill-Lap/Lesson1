@@ -18,6 +18,12 @@ public class Bullet extends Sprite {
         this.regions = new TextureRegion[1];
     }
 
+    @Override
+    public void resize(Rectang worldBounds) {
+        super.resize(worldBounds);
+        this.worldBounds = worldBounds;
+    }
+
     public void set(
         Object owner,
         TextureRegion region,
@@ -43,6 +49,7 @@ public class Bullet extends Sprite {
         if (isOutside(worldBounds)) {
             destroy();
         }
+
     }
 
     public int getDamage() {
