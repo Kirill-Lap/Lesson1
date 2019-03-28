@@ -19,7 +19,7 @@ public class Star extends Sprite {
         float vX = randomFloat(-0.01f, 0.01f);
         float vY = randomFloat(-0.4f, -0.1f);
         v = new Vector2(vX,vY);
-        float size = randomFloat(0.01f, 0.015f);
+        float size = randomFloat(0.01f, 0.011f);
         setHeightProportion(size);
     }
 

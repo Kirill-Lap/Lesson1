@@ -9,9 +9,12 @@ import com.badlogic.gdx.math.Vector2;
 
 import backi.in.business.base.BaseScreen;
 import backi.in.business.math.Rectang;
+import backi.in.business.pool.BulletPool;
+import backi.in.business.pool.EnemyPool;
 import backi.in.business.sprite.Background;
 import backi.in.business.sprite.MainShip;
 import backi.in.business.sprite.Star;
+import backi.in.business.utils.EnemiesEmitter;
 
 public class GameScreen extends BaseScreen {
     private static final int STAR_COUNT = 64;
@@ -21,8 +24,11 @@ public class GameScreen extends BaseScreen {
     private Texture backgroundImg;
     private Star starList[];
     TextureAtlas atlas;
+    private BulletPool bulletPool;
     private MainShip mainShip;
 
+    private EnemyPool enemyPool;
+    private EnemiesEmitter enemiesEmitter;
 
     @Override
     public void show() {
@@ -35,7 +41,10 @@ public class GameScreen extends BaseScreen {
             starList[i] = new Star(new TextureRegion(new Texture("star2.png")));
         }
         atlas = new TextureAtlas("Textures/mainAtlas.tpack");
-        mainShip = new MainShip(atlas);
+        bulletPool = new BulletPool();
+        enemyPool = new EnemyPool(bulletPool, worldBounds);
+        enemiesEmitter = new EnemiesEmitter(atlas, worldBounds, enemyPool);
+        mainShip = new MainShip(atlas, bulletPool);
     }
 
     @Override
@@ -53,6 +62,7 @@ public class GameScreen extends BaseScreen {
     public void render(float delta) {
         super.render(delta);
         update(delta);
+        deleteAllDestroyed();
         draw();
     }
 
@@ -62,6 +72,15 @@ public class GameScreen extends BaseScreen {
             star.update(delta);
         }
         mainShip.update(delta);
+        bulletPool.updateActiveSprites(delta);
+        enemyPool.updateActiveSprites(delta);
+        enemiesEmitter.generate(delta);
+    }
+
+    private void deleteAllDestroyed(){
+
+        bulletPool.freeDestroyedActiveSprites();
+        enemyPool.freeDestroyedActiveSprites();
     }
 
     private void draw() {
@@ -73,6 +92,8 @@ public class GameScreen extends BaseScreen {
             star.draw(batch);
         }
         mainShip.draw(batch);
+        bulletPool.drawActiveSprites(batch);
+        enemyPool.drawActiveSprites(batch);
         batch.end();
 
     }
@@ -82,6 +103,8 @@ public class GameScreen extends BaseScreen {
     public void dispose() {
         backgroundImg.dispose();
         atlas.dispose();
+        bulletPool.dispose();
+        enemyPool.dispose();
         super.dispose();
     }
 

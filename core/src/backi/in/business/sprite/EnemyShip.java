@@ -4,47 +4,45 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 
-import backi.in.business.base.Sprite;
 import backi.in.business.math.Rectang;
-import backi.in.business.utils.RegionsUtils;
+import backi.in.business.pool.BulletPool;
 
-public class EnemyShip extends Sprite {
-    private Rectang worldBounds;
-    private Vector2 v;
-    private Vector2 vBullet;
-    private int damage;
-    private int life;
+public class EnemyShip extends Ship {
 
-    public EnemyShip() {
-        v = new Vector2();
-        vBullet = new Vector2();
+
+    public EnemyShip(BulletPool bulletPool, Rectang worldBounds) {
+        this.worldBounds = worldBounds;
         this.regions = new TextureRegion[2];
+        this.bulletPool = bulletPool;
 
     }
 
     public void set(
-        TextureRegion region,
-        Vector2 pos0,
+        TextureRegion[] regions,
         Vector2 v0,
         Vector2 vBullet,
+        float bulletHeight,
+        TextureRegion bulletRegion,
         float height,
-        Rectang worldBounds,
         int damage,
-        int life
+        float reloadInterval,
+        int hp
     ) {
-        this.regions = RegionsUtils.split(region, 1,2, 2);
-        pos.set(pos0);
+        this.regions = regions;
         v.set(v0);
         this.vBullet.set(vBullet);
+        this.bulletHeight = bulletHeight;
+        this.bulletRegion = bulletRegion;
         setHeightProportion(height);
-        this.worldBounds = worldBounds;
         this.damage = damage;
-        this.life = life;
+        this.reloadInterval = reloadInterval;
+        this.hp = hp;
     }
 
     @Override
     public void update(float delta) {
-        pos.mulAdd(v, delta);
+        super.update(delta);
+//        pos.mulAdd(v, delta);
     }
 
     @Override

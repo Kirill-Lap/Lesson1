@@ -3,15 +3,15 @@ package backi.in.business.sprite;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.math.Vector2;
 
-import backi.in.business.base.Sprite;
 import backi.in.business.math.Rectang;
+import backi.in.business.pool.BulletPool;
 
-public class MainShip extends Sprite {
+public class MainShip extends Ship {
 
     private static final int NULL_POINTER = -1;
     private Rectang worldBounds;
 
-    private Vector2 v = new Vector2();
+//    private Vector2 v = new Vector2();
     private Vector2 v0 = new Vector2(0.7f,0);
 
     private boolean pressedLeft = false;
@@ -23,21 +23,32 @@ public class MainShip extends Sprite {
     private int rightPointer = NULL_POINTER;
 
 
-    public MainShip(TextureAtlas atlas) {
+
+    public MainShip(TextureAtlas atlas, BulletPool bulletPool) {
         super(atlas.findRegion("main_ship"), 1, 2, 2);
         setHeightProportion(0.15f);
+        this.bulletPool = bulletPool;
+        this.bulletRegion = atlas.findRegion("bulletMainShip");
+        this.bulletHeight = 0.02f;
+        this.vBullet.set(0,0.5f);
+        this.damage = 1;
+        this.reloadInterval = 0.2f;
+        this.hp = 10;
 //        v = new Vector2();
     }
 
     @Override
     public void resize(Rectang worldBounds) {
+        super.resize(worldBounds);
         this.worldBounds = worldBounds;
         setBottom(-0.5f+0.05f);
     }
 
     @Override
     public void update(float delta) {
-        pos.mulAdd(v, delta);
+        super.update(delta);
+
+//        pos.mulAdd(v, delta);
         if (getRight() > worldBounds.getRight()) {
             setRight(worldBounds.getRight());
             stop();
@@ -143,6 +154,9 @@ public class MainShip extends Sprite {
             case 32:
                 pressedRight = false;
                 checkPressed();
+                break;
+            case 62:
+                shoot();
                 break;
             case 66:
                 stop();

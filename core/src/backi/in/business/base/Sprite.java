@@ -10,6 +10,7 @@ import backi.in.business.utils.RegionsUtils;
 public class Sprite extends Rectang {
     private float angle;
     private float scale = 1f;
+    private boolean isDestroyed = false;
     protected TextureRegion[] regions;
 
     protected int frame=0;
@@ -74,4 +75,17 @@ public class Sprite extends Rectang {
     public void setScale(float scale) {
         this.scale = scale;
     }
+
+    public void destroy() {
+        isDestroyed = true;
+    }
+
+    public void revive(){
+        isDestroyed = false;
+    }
+
+    public boolean isDestroyed(){
+        return isDestroyed;
+    }
+
 }
