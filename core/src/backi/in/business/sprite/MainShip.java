@@ -3,13 +3,15 @@ package backi.in.business.sprite;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.math.Vector2;
 
+import backi.in.business.base.Sprite;
 import backi.in.business.math.Rectang;
 import backi.in.business.pool.BulletPool;
+import backi.in.business.pool.ExplosionPool;
 
 public class MainShip extends Ship {
 
     private static final int NULL_POINTER = -1;
-    private Rectang worldBounds;
+//    private Rectang worldBounds;
 
 //    private Vector2 v = new Vector2();
     private Vector2 v0 = new Vector2(0.7f,0);
@@ -23,8 +25,7 @@ public class MainShip extends Ship {
     private int rightPointer = NULL_POINTER;
 
 
-
-    public MainShip(TextureAtlas atlas, BulletPool bulletPool) {
+    public MainShip(TextureAtlas atlas, BulletPool bulletPool, ExplosionPool explosionPool) {
         super(atlas.findRegion("main_ship"), 1, 2, 2);
         setHeightProportion(0.15f);
         this.bulletPool = bulletPool;
@@ -34,21 +35,20 @@ public class MainShip extends Ship {
         this.damage = 1;
         this.reloadInterval = 0.2f;
         this.hp = 10;
-//        v = new Vector2();
+        this.explosionPool = explosionPool;
     }
 
     @Override
     public void resize(Rectang worldBounds) {
         super.resize(worldBounds);
-        this.worldBounds = worldBounds;
-        setBottom(-0.5f+0.05f);
+//        this.worldBounds = worldBounds;
+        setBottom(worldBounds.getBottom()+0.05f);
     }
 
     @Override
     public void update(float delta) {
         super.update(delta);
-
-//        pos.mulAdd(v, delta);
+        pos.mulAdd(v, delta);
         if (getRight() > worldBounds.getRight()) {
             setRight(worldBounds.getRight());
             stop();
@@ -65,7 +65,7 @@ public class MainShip extends Ship {
         }
 
         if (getTop() > worldBounds.getTop()) {
-            ////////////////////
+            setTop(worldBounds.getTop());
             stop();
 
         }
@@ -155,9 +155,6 @@ public class MainShip extends Ship {
                 pressedRight = false;
                 checkPressed();
                 break;
-            case 62:
-                shoot();
-                break;
             case 66:
                 stop();
                 break;
@@ -210,6 +207,15 @@ public class MainShip extends Ship {
             return;
         }
         stop();
+    }
+
+    public boolean gotHit(Rectang bullet) {
+        return !(
+                        bullet.getRight() < getLeft()
+                        || bullet.getLeft() > getRight()
+                        || bullet.getBottom() > getTop()
+                        || bullet.getTop() > pos.y
+        );
     }
 
     private void stop() {
