@@ -1,0 +1,40 @@
+
+HealthBar.png
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+Boss_HP_Center
+  rotate: false
+  xy: 1, 95
+  size: 890, 20
+  orig: 890, 20
+  offset: 0, 0
+  index: -1
+Health_Bar_Table
+  rotate: false
+  xy: 1, 23
+  size: 400, 70
+  orig: 400, 70
+  offset: 0, 0
+  index: -1
+Health_Dot
+  rotate: false
+  xy: 403, 35
+  size: 30, 58
+  orig: 30, 58
+  offset: 0, 0
+  index: -1
+Boss_HP_Left
+  rotate: false
+  xy: 893, 95
+  size: 50, 20
+  orig: 50, 20
+  offset: 0, 0
+  index: -1
+Boss_HP_Right
+  rotate: false
+  xy: 1, 1
+  size: 50, 20
+  orig: 50, 20
+  offset: 0, 0
+  index: -1

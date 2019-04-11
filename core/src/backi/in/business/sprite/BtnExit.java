@@ -8,14 +8,13 @@ import backi.in.business.math.Rectang;
 
 public class BtnExit extends ScalableButton {
     public BtnExit(TextureAtlas atlas) {
-        super(atlas.findRegion("btn_exit"));
-        setHeightProportion(0.2f);
+        super(atlas.findRegion("exit"));
+        setHeightProportion(0.1f);
     }
 
     @Override
     public void resize(Rectang worldBounds) {
-        setBottom(worldBounds.getBottom() + 0.03f);
-        setLeft(worldBounds.getLeft() + 0.03f);
+        pos.set(worldBounds.pos.x, worldBounds.pos.y- 0.25f);
     }
 
     @Override

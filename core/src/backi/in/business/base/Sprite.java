@@ -82,7 +82,7 @@ public class Sprite extends Rectang {
 
     public void revive(){
         isDestroyed = false;
-    }
+    } //оживление (flushDestroy)
 
     public boolean isDestroyed(){
         return isDestroyed;

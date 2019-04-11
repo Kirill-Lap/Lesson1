@@ -9,14 +9,15 @@ import backi.in.business.math.Rectang;
 public class BtnGameOver extends ScalableButton {
 
     public BtnGameOver(TextureAtlas atlas) {
-        super(atlas.findRegion("message_game_over"));
-        setHeightProportion(0.05f);
+        super(atlas.findRegion("game_over"));
+        setHeightProportion(0.07f);
+        setBottom(0.01f);
     }
 
-    @Override
-    public void resize(Rectang worldBounds) {
-        pos.set (0f, 0.25f);
-    }
+//    @Override
+//    public void resize(Rectang worldBounds) {
+//        pos.set (0f, 0.25f);
+//    }
 
     @Override
     public void action() {

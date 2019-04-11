@@ -3,22 +3,31 @@ btns.png
 format: RGBA8888
 filter: Nearest,Nearest
 repeat: none
-btn_exit
+game_over
   rotate: false
-  xy: 1, 1
-  size: 584, 600
-  orig: 584, 600
+  xy: 1, 346
+  size: 960, 109
+  orig: 960, 109
   offset: 0, 0
   index: -1
-
-btns2.png
-format: RGBA8888
-filter: Nearest,Nearest
-repeat: none
-btn_start
+new_game
+  rotate: false
+  xy: 1, 223
+  size: 932, 121
+  orig: 932, 121
+  offset: 0, 0
+  index: -1
+exit
+  rotate: false
+  xy: 1, 112
+  size: 487, 109
+  orig: 487, 109
+  offset: 0, 0
+  index: -1
+play
   rotate: false
   xy: 1, 1
-  size: 584, 600
-  orig: 584, 600
+  size: 487, 109
+  orig: 487, 109
   offset: 0, 0
   index: -1

@@ -10,9 +10,9 @@ import java.util.List;
 import java.util.Random;
 
 public enum Enemy {
-    SMALL (0.1f, 0.010f, -0.35f, 1, 0.3f, 1, -0.15f),
-    MIDDLE (0.12f, 0.02f, -0.25f, 2,   0.4f, 5, -0.10f),
-    BIG (0.16f, 0.03f, -0.16f, 10, 0.8f, 10, -0.08f);
+    SMALL (0.1f,    0.015f, -0.30f, 1,  0.5f,   1,  -0.07f),
+    MIDDLE (0.12f,  0.02f,  -0.24f, 2,  1f,     5,  -0.04f),
+    BIG (0.16f,     0.03f,  -0.18f, 5,  2f,     10, -0.02f);
 
     private final float ENEMY_HEIGHT;
     private final float ENEMY_BULLETHEIGHT ;
