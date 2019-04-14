@@ -1,5 +1,6 @@
 package backi.in.business.sprite;
 
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.math.Vector2;
 
@@ -11,7 +12,7 @@ import backi.in.business.pool.ExplosionPool;
 public class MainShip extends Ship {
 
     private static final int NULL_POINTER = -1;
-//    private Rectang worldBounds;
+    private Rectang sensibleRadius;
 
 //    private Vector2 v = new Vector2();
     private Vector2 v0 = new Vector2(0.7f,0);
@@ -24,8 +25,10 @@ public class MainShip extends Ship {
     private int leftPointer = NULL_POINTER;
     private int rightPointer = NULL_POINTER;
 
+    private static final float hitRadiusV = 0.55f;
+    private static final float hitRadiusH = 0.9f;
 
-    public MainShip(TextureAtlas atlas, BulletPool bulletPool, ExplosionPool explosionPool) {
+    public MainShip(TextureAtlas atlas, BulletPool bulletPool, ExplosionPool explosionPool, Sound shootSound) {
         super(atlas.findRegion("main_ship"), 1, 2, 2);
         setHeightProportion(0.15f);
         this.bulletPool = bulletPool;
@@ -34,8 +37,24 @@ public class MainShip extends Ship {
         this.vBullet.set(0,0.5f);
         this.damage = 1;
         this.reloadInterval = 0.2f;
-        this.hp = 10;
         this.explosionPool = explosionPool;
+        sensibleRadius = new Rectang();
+        sensibleRadius.pos.set(pos);
+        sensibleRadius.pos.set(pos);
+        sensibleRadius.setWidth(hitRadiusH*getWidth());
+        sensibleRadius.setHeight(hitRadiusV*getHeigth());
+        this.shootSound = shootSound;
+
+    }
+
+    public void setHP(int hp) {
+        this.hp = hp;
+    }
+
+    public void startNewGame(Rectang worldBounds){
+        pos.x  = worldBounds.pos.x;
+        setBottom(worldBounds.getBottom()+0.05f);
+        revive();
     }
 
     @Override
@@ -209,13 +228,26 @@ public class MainShip extends Ship {
         stop();
     }
 
+    public Vector2 getV(){
+        return v;
+    }
+
     public boolean gotHit(Rectang bullet) {
-        return !(
-                        bullet.getRight() < getLeft()
-                        || bullet.getLeft() > getRight()
-                        || bullet.getBottom() > getTop()
-                        || bullet.getTop() > pos.y
-        );
+        sensibleRadius.pos.set(pos);
+        if (sensibleRadius.isInside(bullet.pos)) {
+            return true;
+        } else {
+            return false;
+        }
+//        }
+//        if ()
+//
+//        return !(
+//                        bullet.getRight() < getLeft()
+//                        || bullet.getLeft() > getRight()
+//                        || bullet.getTop() > getBottom()
+//                        || bullet.getBottom() > pos.y
+//        );
     }
 
     private void stop() {

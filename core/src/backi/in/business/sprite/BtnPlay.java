@@ -11,15 +11,14 @@ public class BtnPlay extends ScalableButton {
     private Game game;
 
     public BtnPlay(TextureAtlas atlas, Game game) {
-        super(atlas.findRegion("btn_start"));
+        super(atlas.findRegion("play"));
         this.game = game;
-        setHeightProportion(0.2f);
+        setHeightProportion(0.1f);
     }
 
     @Override
     public void resize(Rectang worldBounds) {
-        setBottom(worldBounds.getBottom() + 0.03f);
-        setRight(worldBounds.getRight() - 0.03f);
+        pos.set(worldBounds.pos);
     }
 
     @Override

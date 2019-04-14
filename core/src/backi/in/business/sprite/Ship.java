@@ -1,5 +1,6 @@
 package backi.in.business.sprite;
 
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
@@ -30,6 +31,8 @@ public class Ship extends Sprite {
 
     protected  float damageAnimateInterval = 0.1f;
     protected float damageAnimateTimer;
+
+    protected Sound shootSound;
 
     public Ship() {
     }
@@ -65,6 +68,7 @@ public class Ship extends Sprite {
         damageAnimateTimer = 0;
         hp -= damage;
         if (hp <= 0) {
+            hp = 0;
             destroy();
         }
     }
@@ -75,9 +79,14 @@ public class Ship extends Sprite {
         boom();
     }
 
+    public void silentDestroy() {
+        super.destroy();
+    }
+
     public void shoot(){
         Bullet bullet = bulletPool.obtain();
         bullet.set(this, bulletRegion, pos, vBullet, bulletHeight, worldBounds, damage);
+        if (shootSound!= null) shootSound.play();
     }
 
     public void boom(){

@@ -40,42 +40,42 @@ public class EnemiesEmitter {
         this.bulletRegion = atlas.findRegion("bulletEnemy");
     }
 
-    public void generate(float delta) {
+    public void generate(float delta, int level) {
         generateTimer +=delta;
         if (generateTimer >= generateInterval) {
             generateTimer = 0f;
             EnemyShip enemyShip = enemyPool.obtain();
-            int i = Rnd.randomInt(1,3);
-            System.out.println("I = " + i);
-            Enemy enemyType = Enemy.randomEnemy();
+//            int i = Rnd.randomInt(1,3);
+            float allocator = Rnd.randomFloat(0f, 1f);
+//            System.out.println("I = " + i);
+            Enemy enemyType = Enemy.SMALL;
             TextureRegion[] currentRegions = enemySmallRegions;
 
-            switch (enemyType) {
-                case SMALL:
-                    currentRegions = enemySmallRegions;
-                    break;
-                case MIDDLE:
-                    currentRegions = enemyMiddleRegions;
-                    break;
-                case BIG:
+            if (allocator >= 0f && allocator <= 0.6f) {
+                currentRegions = enemySmallRegions;
+                enemyType = Enemy.SMALL;
+            } else if (allocator > 0.6f && allocator <= 0.9f) {
+                currentRegions = enemyMiddleRegions;
+                enemyType = Enemy.MIDDLE;
+            } else if (allocator > 0.9f && allocator <=1f) {
                     currentRegions = enemyBigRegions;
-                    break;
+                    enemyType = Enemy.BIG;
             }
-
+            float levelScale = (1f + (float)(level-1)/10f);
             enemyShip.set(
                     currentRegions,
-                    new Vector2(0, enemyType.ENEMY_V()),
-                    new Vector2(0f, enemyType.ENEMY_BULLET_VY()),
+                    new Vector2(0, enemyType.ENEMY_V()*levelScale),
+                    new Vector2(0f, enemyType.ENEMY_BULLET_VY()*levelScale),
                     enemyType.ENEMY_BULLETHEIGHT(),
                     bulletRegion,
                     enemyType.ENEMY_HEIGHT(),
-                    enemyType.ENEMY_DAMAGE(),
+                    enemyType.ENEMY_DAMAGE()*(int)levelScale,
                     enemyType.ENEMY_RELOADINTERVAL(),
-                    enemyType.ENEMY_HP()
+                    enemyType.ENEMY_HP()*level
             );
 
             enemyShip.pos.x = Rnd.randomFloat(worldBounds.getLeft() + enemyShip.getHalfWidth(), worldBounds.getRight() - enemyShip.getHalfWidth());
-            enemyShip.setBottom(worldBounds.getTop());
+            enemyShip.setBottom(worldBounds.getTop() - 0.01f);
         }
     }
 }

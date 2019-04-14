@@ -88,7 +88,8 @@ public class Rectang {
     }
 
     public boolean isOutside(Rectang bounds) {
-        return getLeft() < bounds.getLeft() || getRight() > bounds.getRight() || getBottom() < bounds.getBottom() || getTop() > bounds.getTop();
+//        return getLeft() < bounds.getLeft() || getRight() > bounds.getRight() || getBottom() < bounds.getBottom() || getTop() > bounds.getTop();
+        return getRight() < bounds.getLeft() || getLeft() > bounds.getRight() || getTop() < bounds.getBottom() || getBottom() > bounds.getTop();
     }
 
 }

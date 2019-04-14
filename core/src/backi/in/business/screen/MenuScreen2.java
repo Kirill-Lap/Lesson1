@@ -41,8 +41,9 @@ public class MenuScreen2 extends BaseScreen {
         super.show();
         music = Gdx.audio.newMusic(Gdx.files.internal("stairway.mp3"));
         music.setVolume(0.5f);
+        music.setLooping(true);
         music.play();
-        backgroundImg = new Texture("tsn.jpg");
+        backgroundImg = new Texture("Textures/bg_2.png");
         background = new Background(new TextureRegion(backgroundImg));
         starList = new Star[STAR_COUNT];
         for (int i = 0; i < starList.length; i++) {
